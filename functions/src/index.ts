@@ -2,11 +2,11 @@ import * as functions from "firebase-functions";
 import ImageKit from "imagekit";
 
 interface EnvironmentVariables {
-  git_repo: string;
-  uid: string;
-  imagekit_public_key: string;
-  imagekit_private_key: string;
   imagekit_id: string;
+  imagekit_private_key: string;
+  imagekit_public_key: string;
+  origin_url: string;
+  uid: string;
 }
 const envs: EnvironmentVariables = functions.config().imagekit;
 
@@ -33,11 +33,6 @@ export const uploadImage = functions.https.onRequest((req, res) => {
     return;
   }
 
-  const githubUserRepo = envs.git_repo || "PleaseFillInGIT_REPO";
-
-  res.set(
-    "Access-Control-Allow-Origin",
-    `https://${githubUserRepo[0]}.github.io/`
-  );
+  res.set("Access-Control-Allow-Origin", envs.origin_url || "http://localhost");
   res.status(200).send(getImageKitAuth());
 });
