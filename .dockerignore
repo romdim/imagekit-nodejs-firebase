@@ -1,0 +1,9 @@
+.dockerignore
+.gitignore
+Dockerfile
+README.md
+ui-debug.log
+
+functions/node_modules
+functions/.gitignore
+ui-debug.log
